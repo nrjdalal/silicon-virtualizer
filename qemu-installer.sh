@@ -1,4 +1,4 @@
-# Clone QEMU
+# Clone qemu
 git clone https://github.com/qemu/qemu
 
 # Change directory to qemu repository
@@ -17,4 +17,18 @@ cd build
 make -j8
 
 # Install qemu
+sudo make install
+
+COMMIT=8c345b3e6a736d4985b2bca6f7f24b985900de63
+cd ~ && rm -rf qemu && cp -R cloned qemu && cd qemu
+
+git checkout $COMMIT
+
+curl https://patchwork.kernel.org/series/485309/mbox/ | git am
+
+mkdir build
+cd build
+../configure --target-list=aarch64-softmmu
+make -j8
+
 sudo make install
