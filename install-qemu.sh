@@ -1,3 +1,6 @@
+# Install necessary packages for building
+brew install libffi gettext glib pkg-config autoconf automake pixman ninja
+
 # Clone qemu
 git clone https://github.com/qemu/qemu
 
