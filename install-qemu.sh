@@ -36,3 +36,6 @@ make -j8
 
 # Install qemu
 sudo make install
+
+# Cleaning up
+cd ../../ && rm -rf qemu
