@@ -1,3 +1,11 @@
+# Install Xcode command line tools
+xcode-select --install 2>/dev/null
+
+# Install Homebrew arm64
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(logname)/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Install necessary packages for building
 brew install libffi gettext glib pkg-config autoconf automake pixman ninja
 
