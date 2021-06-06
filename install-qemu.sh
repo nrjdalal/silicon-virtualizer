@@ -3,7 +3,7 @@ xcode-select -p 1>/dev/null 2>/dev/null
 checkXcode=$?
 if [ $checkXcode != 0 ]; then
   echo
-  echo "Please install Xcode command line first tools using"
+  echo "Please install Xcode command line tools first using"
   echo "$(tput setaf 6)xcode-select --install$(tput sgr0)"
   echo
   exit 1
