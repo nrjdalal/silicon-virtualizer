@@ -1,7 +1,9 @@
 # Install Xcode command line tools
-if [ -z "$(xcode-select -v)" ]; then
-  echo "Please install Xcode command line tools using"
-  echo "xcode-select --install"
+xcode-select -p 1>/dev/null 2>/dev/null;
+checkXcode=$?
+if [ $checkXcode != 0 ]; then
+  echo "Please install Xcode command line first tools using"
+  echo "$(tput setaf 6)xcode-select --install$(tput sgr0)"
   exit 1
 fi
 
