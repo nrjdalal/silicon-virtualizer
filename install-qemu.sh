@@ -1,5 +1,5 @@
 # Install Xcode command line tools
-xcode-select -p 1>/dev/null 2>/dev/null;
+xcode-select -p 1>/dev/null 2>/dev/null
 checkXcode=$?
 if [ $checkXcode != 0 ]; then
   echo
