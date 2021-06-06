@@ -1,5 +1,9 @@
 # Install Xcode command line tools
-xcode-select --install 2>/dev/null
+if [ -z "$(xcode-select -v)" ]; then
+  echo "Please install Xcode command line tools using"
+  echo "xcode-select --install"
+  exit 1
+fi
 
 # Install Homebrew arm64
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
