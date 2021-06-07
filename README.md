@@ -2,21 +2,21 @@
 
 > Status - Work in Progress - As of yet there is no installation script or instructions. Tune in after June 11.
 
-* ## Launching your first instance
+* ## Launching machine
 ```zsh
 svir launch
 
 # Launched: demon-king
 ```
 
-* ## Executing commands
+* ## Accessing machine
 ```zsh
 svir shell demon-king
 
 # root@ubuntu:~$
 ```
 
-* ## Listing existing machines
+* ## Listing machines
 ```zsh
 svir list
 
@@ -24,7 +24,7 @@ svir list
 # 2) xo-monster
 ```
 
-* ## Deleting existing machine
+* ## Deleting machine
 ```zsh
 svir delete demon-king
 
