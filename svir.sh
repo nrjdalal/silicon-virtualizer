@@ -30,7 +30,7 @@ init | initialize)
   ;;
 
 # Deleting an instance
-delete)
+delete | rm)
   if [ ! -d $WORK_DIR/$INAME ]; then
     echo "No such instance!"
     exit 1
@@ -40,21 +40,22 @@ delete)
   fi
   ;;
 
-# Launching an instance
-launch)
+# Creating an instance
+create)
   cd $WORK_DIR
   if [ ! $(ls -l | grep -c ^d) -lt 8 ]; then
     echo "Too many instances exists already!"
     exit 1
   else
     INAME=$(base64 </dev/urandom | tr -dc 'A-Z' | head -c6)
-    echo "Launching $INAME"
+    echo "Creating $INAME"
     cp -R $MASTER_DIR $WORK_DIR/$INAME
   fi
   ;;
 
 # Listing all instances
 list | ls)
+  cd $WORK_DIR
   if [ $(ls -l | grep -c ^d) -lt 1 ]; then
     echo "Create an instance first!"
     exit 1
@@ -69,14 +70,21 @@ shell)
     echo "No such instance!"
     exit 1
   fi
+  echo "Accessing $INAME"
   qemu-system-aarch64 \
     -machine virt,accel=hvf,highmem=off \
     -cpu cortex-a72 -smp 4 -m 4G \
-    -device virtio-gpu-pci \
-    -device virtio-keyboard-pci \
+    -display none \
     -drive "format=raw,file=$WORK_DIR/$INAME/edk2-aarch64-code.fd,if=pflash,readonly=on" \
     -drive "format=raw,file=$WORK_DIR/$INAME/ovmf_vars.fd,if=pflash" \
     -drive "format=qcow2,file=$WORK_DIR/$INAME/virtual-disk.qcow2" \
     -nic hostfwd=tcp:127.0.0.1:9922-0.0.0.0:22,hostfwd=tcp:127.0.0.1:9980-0.0.0.0:80 2>/dev/null &
+  flag=false
+  while [ $flag != true ]; do
+    rm -f ~/.ssh/known_hosts && ssh svir@127.0.0.1 -p 9922
+    if [ $? == 0 ]; then
+      flag=true
+    fi
+  done
   ;;
 esac
